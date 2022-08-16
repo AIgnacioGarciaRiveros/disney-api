@@ -34,7 +34,7 @@ public class CharacterController {
         CharacterDTO character=characterService.getCharacterById(id);
         return ResponseEntity.ok().body(character);
     }
-  /*  @GetMapping
+    @GetMapping
     public ResponseEntity<List<CharacterDTO>>getDetailsByFilters(
             @RequestParam(required = false) String name
             ,@RequestParam(required = false) Integer age
@@ -43,9 +43,6 @@ public class CharacterController {
         List<CharacterDTO>characterDTOList = characterService.getCharacterByFilters(name,age,films);
         return ResponseEntity.ok(characterDTOList);
     }
-
-   */
-
 
     @PutMapping("/{id}")
     public ResponseEntity<CharacterDTO> update(@PathVariable Long id,@RequestBody CharacterDTO characterDTO) throws Exception {

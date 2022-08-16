@@ -1,19 +1,26 @@
 package com.alkemy.disney.disney.service.impl;
 
 import com.alkemy.disney.disney.dto.CharacterDTO;
+import com.alkemy.disney.disney.dto.CharacterFilterDTO;
 import com.alkemy.disney.disney.entity.CharacterEntity;
 import com.alkemy.disney.disney.exception.ResourceNotFoundException;
 import com.alkemy.disney.disney.mapper.CharacterMapper;
 import com.alkemy.disney.disney.repository.CharacterRepository;
+import com.alkemy.disney.disney.repository.specifications.CharacterSpecification;
 import com.alkemy.disney.disney.service.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 @Service
 public class CharacterServiceImpl implements CharacterService {
-
+    @Autowired
+    private  CharacterSpecification characterSpecification;
     @Autowired
     private CharacterRepository characterRepository;
     @Autowired
@@ -38,9 +45,12 @@ public class CharacterServiceImpl implements CharacterService {
         return characterDTO;
     }
 
-   // public List<CharacterDTO> getCharacterByFilters(String name, Integer age, List<Long> films) {
-    //    return null;
-  //  }
+    public List<CharacterDTO> getCharacterByFilters(String name, Integer age, List<Long> films) {
+        CharacterFilterDTO filterDTO=new CharacterFilterDTO(name,age,films);
+        List<CharacterEntity> charactersFiltered=characterRepository.findAll(characterSpecification.getByFilters(filterDTO));
+        List<CharacterDTO> characterDTOList = characterMapper.characterEntityList2DTOList(charactersFiltered,false);
+        return characterDTOList;
+    }
 
     public CharacterDTO updateCharacter(CharacterDTO characterDTO, long id){
         CharacterEntity character = characterRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Character","id",String.valueOf(id)));

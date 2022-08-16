@@ -12,4 +12,9 @@ public class CharacterFilterDTO {
     private List<Long> films;
     //TODO:pongo el peso ??
 
+    public CharacterFilterDTO(String name, Integer age, List<Long> films) {
+        this.name = name;
+        this.age = age;
+        this.films = films;
+    }
 }

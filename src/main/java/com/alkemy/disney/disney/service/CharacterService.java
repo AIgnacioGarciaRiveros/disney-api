@@ -10,7 +10,7 @@ public interface CharacterService {
     CharacterDTO save(CharacterDTO characterDTO);
     List<CharacterDTO> getAllCharacters() throws Exception;
     CharacterDTO getCharacterById(long id) throws Exception;
-//    List<CharacterDTO> getCharacterByFilters(String name, Integer age, List<Long> films);
+    List<CharacterDTO> getCharacterByFilters(String name, Integer age, List<Long> films);
     CharacterDTO updateCharacter(CharacterDTO characterDTO,long id) throws Exception;
     void deleteCharacterById(long id) throws Exception;
 }
